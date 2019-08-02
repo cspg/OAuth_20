@@ -115,6 +115,238 @@ G. OAuth2.0 Client
    
   - 실행에 앞서 client app 을 인증서버(oauth2provider)에 등록해야 함.
   
+  20 ~ oauth
+
+= = = = = = = =
+
+
+
+Samples for OAuth 2.0 Provider &client
+
+
+
+OAuth2 Provider & Consumer Sample。
+
+tools https:/ / html ietf . org”,并根据rfc6749 /制作。
+
+这个代码是样本代码。不要用于商业目的。请只作为学习用。
+
+不接受关于配置的问题，代码本身的问题。
+
+关于OAuth2.0的问题，也可以直接阅读上面的RFC文档。
+
+
+
+如果不是为了商业目的，它是可以被使用的代码。
+
+不要用于商业目的。
+
+
+
+此代码的版权在stepanowon@hotmail.com。
+
+
+
+因为a。
+
+
+
+- Oracle 10g Express(H2 Database可用)
+
+- Java 1.6 + Spring 3.1 + Eclipse(indigo) + Maven + iBatis 2.0 + Tomcat 6.0(HTTP Port 8000)
+
+
+
+b。project
+
+
+
+- oauth2provider:认证服务器&资源服务器
+
+- oauth2client: web server flow客户端
+
+- oauth2client_agentflow: User Agent flow客户端
+
+
+
+c configuration。
+
+
+
+-创建table
+
+- DB必须在oracle 10g express中创建oauth2/oauth2帐户。
+
+——oauth2provider的src目录中的oauth2provider。读取sql文件安装表
+
+用户帐号为t1000, gdhong和arnold三个账户(相同密码)
+
+
+
+-设定常数值
+
+- net。oauth。从v2包的OAuth2Constant类更改常量
+
+token:决定是否使用refresh token功能
+
+key:内部生成代币时使用的加密密钥值
+
+使用repis_in_value: refresh token功能时，代币的有效期(基本值:3600秒)
+
+
+
+- net。oauth。在v2分组OAuth2Scope类中更改常量
+
+*根据组织设定scope常数值(目前设置了6种样品scope)
+
+* resource endent按url设定权限(scope)
+
+
+
+d endpoint。
+
+-注册login & client app
+
+* . com provider。oauth2。multi。”controller。view。参考LoginController类
+
+* . com provider。oauth2。multi。”controller。view。参考ClientController类
+
+
+
+- authorization
+
+oauth2provider oauth2 / / / * auth
+
+如果type参数是code的话，那么web server flow
+
+如果type参数为token，则user agent flow(包括Mobile App, Desktop)
+
+
+
+token -
+
+oauth2provider oauth2 / / / * token
+
+如果是code的话，可以使用server flow发放access token
+
+如果是，grant_type参数为refresh_token的话，可以更新access token。
+
+
+
+- protected resource
+
+*这个样品中的protected resource是假定得到了用户的帐号信息，
+
+endpoint resource oauth2provider / / /在myinfo。do。
+
+*各种protected resource权限赋予各point end为了oauth。net权限。v2。oauth2scope class的
+
+在scopeUrlMap网址上用Hashmap填写
+
+* access token scope验证、信息。com(interceptor验证。provider oauth2。multi util。oauth2interceptor)。
+
+利用Controller在运行前进行处理。
+
+*例外处理在Controller上产生OAuth2Exception
+
+ExceptionResolver移动到error页面，回答OAuth2.0 spec的错误代码和信息。
+
+*•布莱恩特app user agent类型,如果登记resource protected domain问题基本上cross
+
+能够解决cors(cross origin resource sharing),并支援技法。
+
+
+
+为应对CSRF(Cross Site Request Forgery)攻击，
+
+recommended 0到。oauth2파라미터state的使用。
+
+
+
+E.需要追加/改进的事项..
+
+OAuth 2.0中的任何错误都是通过WWW-Authenticate header来回答的，
+
+Google, Facebook有不同的方式。本样品采用facebook样式(?)制作。
+
+
+
+- oauth2。0的处理过程中server web flow和user agent flow只处理。
+
+* password credential和client credential没有制作方式。相反
+
+oauth2。com”。provider。multi controller。view。OAuth2Controller的280号，
+
+今后处理主席应明确体现。
+
+* refresh token是否使用的oauth2constant常数的价格随着变更。
+
+* refresh不使用token token access的情况是,并没有生成的,根据规则。
+
+创建了大脑。->可更改为创建随机代币并存储在数据库中
+
+
+
+-在样本redirect __ uri价格比较validation过程,所以经过·布莱恩特app登记时
+
+必须输入可访问的URL(允许localhost)
+
+
+
+
+
+f .通知事项。
+
+-李样本是正确的,但是运作良好,距离宏设计制作。
+
+-所以不是很好的代码。主席也是开发者。
+
+-디버깅目的意气相投视觉上的编码打印索内容都知道很多,所以应该去除测试。
+
+
+
+- oracle代替10g maven如果使用其他数据库applicationcontext、dependency。xml、oauth2 xml、。
+
+oauth2provider。可以修改sql文件。
+
+
+
+
+
+
+
+
+
+G. OAuth2.0 Client
+
+- oauth2client
+
+* web server flow处理client制作。
+
+*公示板通信apache common的httpclent class使用
+
+* client各要素的jsp制作简单,
+
+* settings。java文件client找到__ id、client __ secret、各endpoint uri变更后实行。
+
+
+
+- oauth2client agentflow __
+
+* user agent flow client的方式。
+
+* html拟定文件
+
+* jquery使用的网络应用程序,通过webview token access并认证的移动应用程序。上述两种情况
+
+这一代码可以参考。
+
+* index)。html和callback。html的内部client __ id、client __ secret、各endpoint,设定并实施。
+
+
+
+-实行之前client app认证oauth2provider服务器(应)注册。
+  
 
 
 
